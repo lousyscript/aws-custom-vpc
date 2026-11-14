@@ -11,15 +11,15 @@ Hands-on project: I built a VPC from scratch (instead of using the default one),
 flowchart TB
   Internet((Internet)) --> IGW[Internet Gateway]
   subgraph VPC["cspm-vpc 10.0.0.0/16"]
-    IGW --> RT[public-rt<br/>0.0.0.0/0 → IGW]
+    IGW --> RT["public-rt<br/>0.0.0.0/0 to IGW"]
     RT --> PUB
     subgraph PUB["public-subnet 10.0.1.0/24"]
-      EC2A[Public EC2<br/>jump host + nginx]
+      EC2A["Public EC2<br/>jump host + nginx"]
     end
     subgraph PRIV["private-subnet 10.0.2.0/24<br/>route table: local only"]
-      EC2B[Private EC2<br/>no public IP]
+      EC2B["Private EC2<br/>no public IP"]
     end
-    EC2A -. SSH from 10.0.1.0/24 .-> EC2B
+    EC2A -.->|"SSH from 10.0.1.0/24"| EC2B
   end
 ```
 
